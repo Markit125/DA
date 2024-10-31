@@ -138,6 +138,7 @@ void TTreap::Erase(const std::string &key) {
     TTreap::TNode *rtreapRoot = rtreap;
     if (rtreapRoot->key == key) {
         if (rtreapRoot->right == nullptr) {
+            delete rtreapRoot;
             rtreapRoot = nullptr;
         } else {
             rtreapRoot = rtreapRoot->right;
@@ -146,6 +147,7 @@ void TTreap::Erase(const std::string &key) {
         while (rtreap != nullptr) {
             if (rtreap->left != nullptr && rtreap->left->key == key) {
                 if (rtreap->left->right == nullptr) {
+                    delete rtreap;
                     rtreap->left = nullptr;
                 } else {
                     rtreap->left = rtreap->left->right;
