@@ -5,21 +5,26 @@
 
 std::vector<int> zString(std::string &text, std::string &pattern) {
     std::string str = pattern + "$" + text;
-    std::vector<int> z_func;
-    z_func.push_back(-1);
-    
-    int begin = -1;
-    int end = -1;
+    std::vector<int> z_func(str.length());
 
-    for (int i = pattern.length() + 1; i < text.length(); ++i) {
-        if (begin != -1 && end < ) {
-            
-        } else {
+    int l = -1, r = -1;
+    z_func[0] = str.size();
 
+    for (int i = 1; i < str.size(); i++) {
+        if (i <= r) {
+            z_func[i] = std::min(z_func[i - l], r - i);
+        }
+
+        while (l + z_func[i] < str.size() && str[z_func[i]] == str[i + z_func[i]]){
+            ++z_func[i];
+        }
+
+        if (i + z_func[i] > r) {
+            r = i + z_func[i];
+            l = i;
         }
     }
-
-    return z_func; 
+    return z_func;
 }
 
 int main() {
@@ -35,9 +40,9 @@ int main() {
 
     std::vector<int> zStr = zString(text, pattern);
 
-    for (int i = 0; i < zStr.size(); ++i) {
+    for (int i = pattern.length() + 1; i < zStr.size(); ++i) {
         if (zStr[i] == pattern.length()) {
-            std::cout << i << "\n";
+            std::cout << i - pattern.length() - 1 << "\n";
         }
     }
 
